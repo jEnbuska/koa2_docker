@@ -9,14 +9,14 @@
   "dependencies": {
     "koa": "^2.2.0",
     "koa-router": "^7.1.1",
-    "random-hash": "^4.0.1"
+    "random-hash": "^4.0.1",
+    "babel-register": "^6.4.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-preset-es2015-node5": "^1.1.2",
-    "babel-register": "^6.4.3",
     "eslint": "^3.18.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
