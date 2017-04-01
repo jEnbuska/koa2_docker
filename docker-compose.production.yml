@@ -1,0 +1,9 @@
+version: '2'
+services:
+  backend:
+    image: joonadocker/koa2docker_backend:latest
+    environment:
+      NODE_ENV: "production"
+    ports:
+      - 9000:9000
+    entrypoint: ["npm", "start"]
