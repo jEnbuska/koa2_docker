@@ -8,5 +8,5 @@ services:
     environment:
       NODE_ENV: "production"
     ports:
-      - "80:9000"
+      - 9000:9000
     entrypoint: ["npm", "start"]
