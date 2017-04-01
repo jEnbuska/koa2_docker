@@ -28,5 +28,5 @@ deployment:
       - docker images
       - docker tag koa2docker_backend $DOCKER_HUB_USER_ID/koa2docker_backend:$CIRCLE_SHA1
       - docker tag koa2docker_backend $DOCKER_HUB_USER_ID/koa2docker_backend:latest
-      - docker push $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:$CIRCLE_SHA1
-      - docker push $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:latest
+      - docker push $DOCKER_HUB_USER_ID/koa2docker_backend:$CIRCLE_SHA1
+      - docker push $DOCKER_HUB_USER_ID/koa2docker_backend:latest
