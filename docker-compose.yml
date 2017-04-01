@@ -1,14 +1,12 @@
 version: '2'
 services:
-  dockerapp:
+  koa2:
     build:
       context: src
       dockerfile: Dockerfile
     container_name: koa2_docker
     environment:
       NODE_ENV: "production"
-    volumes:
-      - "./src:/usr/src"
     ports:
       - "80:9000"
     entrypoint: ["npm", "start"]
