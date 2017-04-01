@@ -1,0 +1,12 @@
+FROM node:latest
+
+# Copied from: http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/
+# use changes to package.json to force Docker not to use the cache
+# when we change our application's nodejs dependencies:
+ADD src/package.json /tmp/package.json
+RUN cd /tmp && npm install --production
+RUN mkdir -p /usr/src && cp -a /tmp/node_modules /usr/src/
+ADD src/package.json /usr/src/package.json
+WORKDIR /usr/src
+
+RUN npm install
