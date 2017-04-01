@@ -1,6 +1,6 @@
 version: '2'
 services:
-  koa2:
+  backend:
     build:
       context: src
       dockerfile: Dockerfile
