@@ -19,7 +19,7 @@ deployment:
     branch: /.*/
     commands:
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-      - docker tag dockerexamplebackend_koa2 $DOCKER_HUB_USER_ID/koa2:$CIRCLE_SHA1
-      - docker tag dockerexamplebackend_koa2 $DOCKER_HUB_USER_ID/koa2:latest
-      - docker push $DOCKER_HUB_USER_ID/koa2:$CIRCLE_SHA1
-      - docker push $DOCKER_HUB_USER_ID/koa2:latest
+      - docker tag dockerexamplebackend_koa2 $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:$CIRCLE_SHA1
+      - docker tag dockerexamplebackend_koa2 $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:latest
+      - docker push $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:$CIRCLE_SHA1
+      - docker push $DOCKER_HUB_USER_ID/dockerexamplebackend_koa2:latest
