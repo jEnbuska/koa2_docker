@@ -1,57 +1,72 @@
-"use strict"
-const hash = require('random-hash');
+"use strict";
+const hash = require('random-hash').generateHash;
 const { keys } = Object;
-const users = require('../data');
+const users = require('../data').users;
 
 const getUsers = async  (ctx) => {
-  ctx.body = keys(users).map(key => {
-    const {id, name, imageUrl} = users[key];
+  ctx.body = keys(users()).map(key => {
+    const {id, name, imageUrl} = users()[key];
     return {id, name, imageUrl};
   });
   ctx.status = 200;
-}
+};
 
 const getUserById = async (ctx) => {
   const {userId} = ctx.params;
-  const user = users[userId];
+  const user = users()[userId];
   if(user){
-    const {name, imageUrl, userId} = user;
-    ctx.body = {name, imageUrl, userId};
+    const {name, imageUrl, id} = user;
+    ctx.body = {name, imageUrl, id};
     ctx.status=200;
   }else{
     ctx.status = 404;
     ctx.body = 'No such user ' + userId;
   }
-}
+};
 
 const  createUser = async (ctx) => {
-  const {name, imageUrl} = ctx.body
+  const {name, imageUrl} = ctx.request.body;
   if(typeof name === 'string' && typeof imageUrl === 'string'){
-    const userId = hash()
-    users[userId] = {userId, name, imageUrl, todos: [] };
+    const id= hash();
+    users()[id] = {id, name, imageUrl, todos: [] };
     ctx.status = 200;
-    ctx.body = {userId, name, imageUrl};
+    ctx.body = {id, name, imageUrl};
   }else{
-    ctx.body = 'name and imageUrl must be of type string, got'+ {imageUrl, name}
+    ctx.body = 'name and imageUrl must be of type string, got '+ {imageUrl, name};
     ctx.status = 400;
   }
-}
+};
 
 const updateUser = async (ctx) => {
   const {userId} = ctx.params;
-  const user = users[userId];
+  const user = users()[userId];
   if(user){
-    const {name, imageUrl} = user;
+    const {name, imageUrl} = ctx.request.body;
     if(typeof name === 'string' && typeof imageUrl === 'string'){
-      ctx.body = {name, imageUrl};
+      user.imageUrl = imageUrl;
+      user.name = name;
+      ctx.body = {id: userId, name: user.name, imageUrl: user.imageUrl};
       ctx.status=200;
     }else{
-      ctx.body = 'name and imageUrl must be of type string, got'+ {imageUrl, name}
+      ctx.body = 'name and imageUrl must be of type string, got '+ {imageUrl, name};
       ctx.status = 400;
     }
   }else{
     ctx.status = 404;
-    ctx.body = 'no such user',userId,'found'
+    ctx.body = 'no such user ' + userId +' found'
   }
-}
-module.exports = {getUsers, getUserById, createUser, updateUser}
+};
+
+const deleteUser = async (ctx) => {
+  const {userId} = ctx.params;
+  const user = users()[userId];
+  if(user){
+    delete users()[userId];
+    ctx.status = 204;
+  }else{
+    ctx.status = 404;
+    ctx.body = 'no such user ' + userId +' found'
+  }
+};
+
+module.exports = {getUsers, getUserById, createUser, updateUser, deleteUser};
