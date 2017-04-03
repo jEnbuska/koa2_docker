@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=test node server.js",
     "debug": "nodemon -x 'node --inspect=56745' server.js",
-    "test": "mocha --watch --compilers js:babel-register --harmony --require should"
+    "test": "mocha --compilers js:babel-register --harmony --require should",
+    "test-watch": "mocha --watch --compilers js:babel-register --harmony --require should"
   },
   "dependencies": {
     "babel-plugin-syntax-async-functions": "^6.8.0",
@@ -14,20 +15,19 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.4.3",
     "koa": "^2.2.0",
-    "koa-bodyparser": "^4.2.0",
+    "koa-bodyparser": "^2.0.1",
     "koa-router": "^7.1.1",
-    "random-hash": "^4.0.1"
+    "mocha": "^3.2.0",
+    "random-hash": "^4.0.1",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.18.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
-    "mocha": "^3.2.0",
-    "nodemon": "^1.8.1",
-    "should": "^8.4.0",
-    "supertest": "^3.0.0"
+    "nodemon": "^1.8.1"
   }
 }
