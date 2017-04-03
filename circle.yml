@@ -9,15 +9,14 @@ dependencies:
     - sudo pip install --upgrade pip
     - sudo pip install docker-compose
 
-#test:
-#  override:
-#    - docker-compose up -d
-#   - docker-compose run dockerapp python test.py
+test:
+  override:
+    - docker-compose up -d
+    - docker-compose run backend npm run test
 
 createimage:
   override:
     - docker-compose up -d
-
 
 deployment:
   hub:
