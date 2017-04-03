@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:latest
 
 RUN apt-get update -y;apt-get install netcat -y --fix-missing
 # Create app directory
