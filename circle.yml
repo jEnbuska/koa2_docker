@@ -9,10 +9,10 @@ dependencies:
     - sudo pip install --upgrade pip
     - sudo pip install docker-compose
 
-test:
-  override:
-    - docker-compose up -d
-    - docker-compose run backend npm run test
+#test:
+#  override:
+#    - docker-compose up -d
+#    - docker-compose run backend npm run test
 
 createimage:
   override:
