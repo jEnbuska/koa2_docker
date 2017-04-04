@@ -13,13 +13,66 @@ router.get('/reset', async (ctx) => {
 
 router.get('/', async (ctx) => {
   ctx.body = {
-    getUsers: {method: 'get', url: '/users' },
+    getUsers: {
+      method: 'get',
+      url: '/users',
+      response: {
+        body: [{id: 'string',name: 'string',imageUrl:'string'}],
+        status: 200,
+      },
+    },
     getUserById: {method: 'get', url :'/users/:userId'},
-    createUser: {method: 'post', url: '/users'},
-    updateUser: {method: 'put', url: '/users/:userId'},
-    createTodo: {method: 'post', url: '/users/:userId/todos'},
-    getTodosByUser: {method:'get', url: '/users/:userId/todos'},
-    deleteTodo: {method: 'delete', url: '/users/:userId/todos/:todoId'}
+    createUser: {
+      method: 'post',
+      url: '/users',
+      response: {
+        body: {id: 'string',name: 'string',imageUrl:'string'},
+        status: 200,
+      }
+    },
+    getTodosByUser: {
+      method:'get',
+      url: '/users/:userId/todos',
+      response: {
+        body: [{ id: 'string', description: 'string'},{ id: 'string', description: 'string'}],
+        status: 200,
+      }
+    },
+    createTodo: {
+      method: 'post',
+      url: '/users/:userId/todos',
+      request: {
+        body: {todo: 'string'},
+      },response: {
+        body: {id: 'string', name: 'string', imageUrl: 'string'},
+        status: 200
+      }
+    },
+    updateUser: {
+      method: 'put',
+      url: '/users/:userId',
+      request: {
+        body: {name: 'string',imageUrl: 'string'}
+      },
+      response: {
+        body: {id: 'string',name: 'string',imageUrl:'string'},
+        status: 200,
+      }
+    },
+    deleteUser: {
+      method: 'delete',
+      url: '/users/:userId',
+      response: {
+        status: 204,
+      }
+    },
+    deleteTodo: {
+      method: 'delete',
+      url: '/users/:userId/todos/:todoId',
+      response: {
+        status: 204
+      }
+    }
   };
   ctx.status = 200;
 });
