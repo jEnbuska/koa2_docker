@@ -44,7 +44,7 @@ router.get('/', async (ctx) => {
       request: {
         body: {todo: 'string'},
       },response: {
-        body: {id: 'string', name: 'string', imageUrl: 'string'},
+        body: [{id: 'string', description:'string'}],
         status: 200
       }
     },

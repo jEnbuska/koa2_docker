@@ -12,7 +12,7 @@ dependencies:
 #test:
 #  override:
 #    - docker-compose up -d
-#    - docker-compose run backend npm run test
+#    - docker-compose exec backend npm run test
 
 createimage:
   override:
