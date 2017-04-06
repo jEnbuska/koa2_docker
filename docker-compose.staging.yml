@@ -11,4 +11,3 @@ services:
     ports:
       - 9000:9000
     entrypoint: ["npm", "start"]
-    env_file: .env

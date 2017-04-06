@@ -22,7 +22,7 @@ deployment:
   hub:
     branch: /.*/
     commands:
-      - docker-compose up -d
+      - docker-compose -f docker-compose.staging.yml up -d
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
       - docker images
       - docker tag koa2docker_backend $DOCKER_HUB_USER_ID/koa2docker_backend:$CIRCLE_SHA1
