@@ -5,6 +5,7 @@ const { keys } = Object;
 import {resetState} from '../data';
 const users = require('../controllers/users');
 const todos = require('../controllers/todos');
+const auth = require('../controllers/auth');
 
 router.get('/reset', async (ctx) => {
   ctx.body = resetState();
@@ -76,6 +77,8 @@ router.get('/', async (ctx) => {
   };
   ctx.status = 200;
 });
+
+router.get('/token', auth.getToken);
 
 router.get('/users', users.getUsers);
 router.get('/users/:userId', users.getUserById);
