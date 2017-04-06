@@ -6,9 +6,11 @@ services:
       dockerfile: Dockerfile
     container_name: koa2_docker
     env_file: .env
+    volumes:
+      - ./src:/usr/src/app
     environment:
-      - NODE_ENV = "production"
+      - NODE_ENV = "development"
     ports:
       - 9000:9000
-    entrypoint: ["npm", "start"]
+    entrypoint: ["npm", "run", "debug"]
     env_file: .env
