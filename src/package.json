@@ -20,6 +20,7 @@
     "firebase-admin": "^4.2.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^2.0.1",
+    "koa-cors": "0.0.16",
     "koa-router": "^7.1.1",
     "mocha": "^3.2.0",
     "random-hash": "^4.0.1",
