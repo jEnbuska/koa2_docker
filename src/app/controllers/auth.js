@@ -7,11 +7,6 @@ const app = admin.initializeApp({
 
 const getToken = async (ctx) => {
   try{
-    app.database().ref().push('hello', err => {
-      console.log('err');
-    });
-    console.log({shared_secret});
-    console.log(app.database().ref().toString());
     app.auth().createCustomToken(shared_secret)
       .then(function(customToken) {
         ctx.body = customToken;
