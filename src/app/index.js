@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-app.use(require('koa-cors'));
+app.use(require('koa-cors')());
 app.use(require('koa-bodyparser')());
 app.use(require('./logger').default);
 
