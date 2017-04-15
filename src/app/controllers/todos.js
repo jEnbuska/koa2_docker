@@ -9,7 +9,7 @@ const getTodosByUser = async  (ctx) => {
     ctx.body = users()[userId].todos;
   }else{
     ctx.status = 404;
-    ctx.body = 'no such user',userId,'found'
+    ctx.body = 'no such user ' +userId +' found'
   }
 };
 
@@ -20,7 +20,7 @@ const createTodo = async (ctx) => {
     const {todo} = ctx.request.body;
     if(typeof todo === 'string'){
       const newTodo = {id: hash(), description: todo, done:false};
-      user.todos.push(newTodo);
+      user.todos[newTodo.id] = newTodo;
       ctx.body = user.todos;
       ctx.status=200;
     }else{
@@ -38,18 +38,11 @@ const updateTodo = async (ctx) => {
   const user = users()[userId];
   if(user){
     const { todos, } = user;
-    const todo = todos.find(({id})=> todoId===id);
+    const todo = todos[todoId];
     if(todo){
       const {description, done} = ctx.request.body;
       if(description && typeof description === 'string'){
-        const updatedTodo = {...todo, description, done};
-        user.todos = todos.map(todo => {
-          if(todo.id===todoId){
-            return updatedTodo
-          }else{
-            return todo;
-          }
-        });
+        user.todos[todo.id] = {...todo, description, done};
         ctx.status = 200;
         ctx.body = user.todos;
       }else{
@@ -72,12 +65,11 @@ const deleteTodo = async (ctx) => {
   const user = users()[userId];
   if(user){
     const {todos} = user;
-    const orginalLength = todos.length;
-    const nextTodos = todos.filter((todo)=> todo.id!==todoId);
-    if(nextTodos.length!==orginalLength){
-      user.todos = nextTodos;
+    const todo = todos[todoId];
+    if(todo){
+      delete todos[todoId];
       ctx.status = 200;
-      ctx.body = nextTodos;
+      ctx.body = todos;
     }else{
       ctx.status = 404;
       ctx.body = 'no such todo ' + todoId;

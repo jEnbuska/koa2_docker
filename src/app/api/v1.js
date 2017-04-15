@@ -18,7 +18,10 @@ router.get('/', async (ctx) => {
       method: 'get',
       url: '/users',
       response: {
-        body: [{id: 'string',name: 'string',imageUrl:'string'}],
+        body: {
+          stringId1: {id: 'string',name: 'string',imageUrl:'string'},
+          stringId2: {id: 'string',name: 'string',imageUrl:'string'}
+        },
         status: 200,
       },
     },
@@ -39,10 +42,10 @@ router.get('/', async (ctx) => {
       method:'get',
       url: '/users/:userId/todos',
       response: {
-        body: [
-          { id: 'string', description: 'string', done:'bool'},
-          { id: 'string', description: 'string', done:'bool'}
-          ],
+        body: {
+          stringId1: { id: 'string', description: 'string', done:'bool'},
+          stringId2: { id: 'string', description: 'string', done:'bool'}
+        },
         status: 200,
       }
     },
@@ -52,10 +55,10 @@ router.get('/', async (ctx) => {
       request: {
         body: {todo: 'string'},
       },response: {
-        body: [
-          {id: 'string', description:'string', done:'bool'},
-          {id: 'string', description:'string', done:'bool'},
-          ],
+        body: {
+          stringId1: { id: 'string', description: 'string', done: 'bool' },
+          stringId2: { id: 'string', description: 'string', done: 'bool' },
+        },
         status: 200
       }
     },

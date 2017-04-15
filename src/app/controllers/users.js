@@ -4,10 +4,11 @@ const { keys } = Object;
 const users = require('../data').users;
 
 const getUsers = async  (ctx) => {
-  ctx.body = keys(users()).map(key => {
+  ctx.body = keys(users()).reduce((acc, key)=> {
     const {id, name, imageUrl} = users()[key];
-    return {id, name, imageUrl};
-  });
+    acc[id] = {id, name, imageUrl};
+    return acc;
+  }, {});
   ctx.status = 200;
 };
 
@@ -24,7 +25,7 @@ const getUserById = async (ctx) => {
   }
 };
 
-const  createUser = async (ctx) => {
+const createUser = async (ctx) => {
   const {name, imageUrl} = ctx.request.body;
   if(typeof name === 'string' && typeof imageUrl === 'string'){
     const id= hash();

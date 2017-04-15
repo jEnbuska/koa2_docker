@@ -1,8 +1,9 @@
-
+import assert from 'assert';
 import {app, server} from '../server'
 import supertest from 'supertest'
 import {users} from '../app/data'
 
+const {keys} = Object;
 const request = supertest.agent(app.listen());
 
 let referenceUser;
@@ -23,8 +24,10 @@ describe('Users', function () {
     request
       .get('/users')
       .expect(200, (err, res) => {
-        res.body.length.should.equal(1);
-        const user = res.body[0];
+        const {body} = res;
+        const ids = keys(body);
+        assert.equal(ids.length, 1);
+        const user = body[ids[0]];
         user.name.should.equal('John Doe');
         done()
       })
@@ -52,7 +55,8 @@ describe('Users', function () {
         name.should.equal('Matti');
         imageUrl.should.equal('some-image-url');
         request.get('/users').expect(200, (err, res) => {
-          res.body.length.should.equal(2);
+          const ids = keys(res.body);
+          assert.equal(ids.length, 2);
           done()
         })
       })
@@ -67,7 +71,8 @@ describe('Users', function () {
         name.should.equal('Matti');
         imageUrl.should.equal('some-image-url');
         request.get('/users').expect(200, (err, res) => {
-          res.body.length.should.equal(1);
+          const ids = keys(res.body);
+          assert.equal(ids.length, 1);
           done()
         });
       });
@@ -78,7 +83,8 @@ describe('Users', function () {
       .delete('/users/'+referenceUser.id)
       .expect(204, () => {
         request.get('/users').expect(200, (err, res) => {
-          res.body.length.should.equal(0);
+          const ids = keys(res.body);
+          assert.equal(ids.length, 0);
           done()
         });
       });

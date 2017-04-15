@@ -1,25 +1,31 @@
-const hash = require('random-hash').generateHash;
 
+const todoId1 = 'abc';
+const todoId2 = 'cba';
 const initialState = {
   klsdgk: {
     id: 'klsdgk',
       name:'John Doe',
       imageUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-13.jpg',
-      todos: [
-      { id: hash(), description: 'eat in the morning', done:false},
-      { id: hash(), description: 'sleep during the day', done:false}
-    ]
-  }
+      todos: {
+        [todoId1]: { id: todoId1, description: 'eat in the morning', done:false},
+        [todoId2]: { id: todoId2, description: 'sleep during the day', done:false}
+      }
+    }
 };
 
 let state;
 const users = () => {
   return state
 };
+const {keys} = Object;
 const resetState = () =>  {
-  state = Object.keys({...initialState}).reduce((acc, key)=> {
+  state = keys(initialState).reduce((acc, key)=> {
     acc[key] = {...initialState[key]};
-    acc[key].todos = [...initialState[key].todos];
+    const todos = {...initialState[key].todos};
+    acc[key].todos = keys(todos).reduce((acc, k) => {
+      acc[k] = {...todos[k]};
+      return acc;
+    },{});
     return acc;
   }, {});
   return state;
