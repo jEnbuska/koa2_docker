@@ -26,6 +26,10 @@ router.get('/', async (ctx) => {
     createUser: {
       method: 'post',
       url: '/users',
+      request: {
+        name: 'string',
+        imageUrl: 'string',
+      },
       response: {
         body: {id: 'string',name: 'string',imageUrl:'string'},
         status: 200,
@@ -35,7 +39,10 @@ router.get('/', async (ctx) => {
       method:'get',
       url: '/users/:userId/todos',
       response: {
-        body: [{ id: 'string', description: 'string'},{ id: 'string', description: 'string'}],
+        body: [
+          { id: 'string', description: 'string', done:'bool'},
+          { id: 'string', description: 'string', done:'bool'}
+          ],
         status: 200,
       }
     },
@@ -45,7 +52,10 @@ router.get('/', async (ctx) => {
       request: {
         body: {todo: 'string'},
       },response: {
-        body: [{id: 'string', description:'string'}],
+        body: [
+          {id: 'string', description:'string', done:'bool'},
+          {id: 'string', description:'string', done:'bool'},
+          ],
         status: 200
       }
     },
@@ -87,6 +97,7 @@ router.put('/users/:userId', users.updateUser);
 router.delete('/users/:userId', users.deleteUser);
 
 router.post('/users/:userId/todos', todos.createTodo);
+router.put('/users/:userId/todos/:todoId', todos.updateTodo);
 router.get('/users/:userId/todos', todos.getTodosByUser);
 router.delete('/users/:userId/todos/:todoId', todos.deleteTodo);
 

@@ -27,6 +27,8 @@ describe('Todos', function () {
         todos.length.should.equal(2);
         todos[0].description.should.equal('eat in the morning');
         todos[1].description.should.equal('sleep during the day');
+        todos[0].done.should.equal(false);
+        todos[1].done.should.equal(false);
         done()
       })
   });
@@ -41,11 +43,37 @@ describe('Todos', function () {
         todos[0].description.should.equal('eat in the morning');
         todos[1].description.should.equal('sleep during the day');
         todos[2].description.should.equal('do some unit testing');
+        todos[0].done.should.equal(false);
+        todos[1].done.should.equal(false);
+        todos[2].done.should.equal(false);
         request.get('/users/'+ referenceUser.id + '/todos')
           .expect(200, (err, res) => {
             res.body.length.should.equal(3);
             done()
           });
+      })
+  });
+
+  it('update todo', function(done){
+    request.get('/users/'+referenceUser.id+'/todos')
+      .expect(200, (err, res) => {
+        const firstTodoId = res.body[0].id;
+        const secondTodo = res.body[1];
+        const description = 'eat when you wake up';
+        request.put('/users/'+referenceUser.id+'/todos/' + firstTodoId)
+          .send({description, done: true})
+          .expect(200, (err, res) => {
+            res.body.length.should.equal(2);
+            const firstTodo = res.body[0];
+            const secondTodoAfter = res.body[1];
+
+            secondTodoAfter.id.should.equal(secondTodo.id);
+            secondTodoAfter.description.should.equal(secondTodo.description);
+            secondTodoAfter.done.should.equal(secondTodo.done);
+            firstTodo.description.should.equal('eat when you wake up');
+            firstTodo.done.should.equal(true);
+            done();
+          })
       })
   });
 
