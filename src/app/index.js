@@ -1,14 +1,12 @@
 const Koa = require('koa');
 const app = new Koa();
-app.use(require('koa-delay')(200, 200));
+
 app.use(require('koa-cors')());
 app.use(require('koa-bodyparser')());
 if(process.env.NODE_ENV!=='test'){
   app.use(require('./logger').default);
+  app.use(require('koa-delay')(200, 200));
 }
-
-
-
 const api = require('./api/v1');
 app.use(api.routes());
 const port = process.env.PORT || 9000;

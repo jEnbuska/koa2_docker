@@ -27,11 +27,19 @@ const getUserById = async (ctx) => {
 
 const createUser = async (ctx) => {
   const {name, imageUrl} = ctx.request.body;
+  let {id} = ctx.request.body;
   if(typeof name === 'string' && typeof imageUrl === 'string'){
-    const id= hash();
-    users()[id] = {id, name, imageUrl, todos: [] };
-    ctx.status = 200;
-    ctx.body = {id, name, imageUrl};
+    if(!id){
+      id= hash();
+    }
+    if(users()[id]){
+      ctx.body = 'Users already exists'+ id;
+      ctx.status = 400;
+    }else{
+      users()[id] = {id, name, imageUrl, todos: [] };
+      ctx.status = 200;
+      ctx.body = {id, name, imageUrl};
+    }
   }else{
     ctx.body = 'name and imageUrl must be of type string, got '+ {imageUrl, name};
     ctx.status = 400;

@@ -54,6 +54,35 @@ describe('Todos', function () {
       })
   });
 
+  it('Add todo with predefined id', function (done) {
+    request
+      .post('/users/' + referenceUser.id + '/todos')
+      .send({id: 'xyz', todo: 'do some more testing'})
+      .expect(200, (err, res) => {
+        const todos = res.body;
+        const newTodo = todos[keys(todos)[2]];
+        newTodo.id.should.equal('xyz');
+        newTodo.description.should.equal('do some more testing');
+        newTodo.done.should.equal(false);
+        done()
+
+      })
+  });
+
+  it('Try to override predefined todo on posh', function (done) {
+    request
+      .post('/users/' + referenceUser.id + '/todos')
+      .send({id: 'xyz', todo: 'do some more testing'})
+      .expect(200, () => {
+        request
+          .post('/users/' + referenceUser.id + '/todos')
+          .send({id: 'xyz', todo: 'do nothing'})
+          .expect(400, () => {
+            done()
+          })
+      })
+  });
+
   it('update todo', function(done){
     request.get('/users/'+referenceUser.id+'/todos')
       .expect(200, (err, res) => {

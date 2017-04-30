@@ -62,6 +62,35 @@ describe('Users', function () {
       })
   });
 
+  it('create user with predefined id', function (done) {
+    request
+      .post('/users')
+      .send({id: 'xyz', name: 'Matti', imageUrl: 'some-image-url'})
+      .expect(200, (err, res) => {
+        const {id, name, imageUrl} = res.body;
+        id.should.equal('xyz');
+        name.should.equal('Matti');
+        imageUrl.should.equal('some-image-url');
+        request.get('/users').expect(200, (err, res) => {
+          const ids = keys(res.body);
+          assert.equal(ids.length, 2);
+          done()
+        })
+      })
+  });
+
+  it('try to create new user with existing id of an other', function(done){
+    request
+      .post('/users')
+      .send({id: 'xyz', name: 'Matti', imageUrl: 'some-image-url'})
+      .expect(200, () => {
+        request.post('/users').send({id: 'xyz', name: 'Kalle', imageUrl: 'some-other-image-url'})
+          .expect(400, () => {
+          done()
+        })
+      })
+  });
+
   it('update user', function (done) {
     request
       .put('/users/'+referenceUser.id)

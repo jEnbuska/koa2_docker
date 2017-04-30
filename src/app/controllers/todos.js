@@ -18,11 +18,20 @@ const createTodo = async (ctx) => {
   const user = users()[userId];
   if(user){
     const {todo} = ctx.request.body;
+    let {id} = ctx.request.body;
     if(typeof todo === 'string'){
-      const newTodo = {id: hash(), description: todo, done:false};
-      user.todos[newTodo.id] = newTodo;
-      ctx.body = user.todos;
-      ctx.status=200;
+      if(!id){
+        id = hash();
+      }
+      if(user.todos[id]){
+        ctx.body = 'todo with id '+id+' already defined';
+        ctx.status = 400;
+      }else{
+        const newTodo = {id, description: todo, done:false};
+        user.todos[newTodo.id] = newTodo;
+        ctx.body = user.todos;
+        ctx.status=200;
+      }
     }else{
       ctx.body = 'todo must be of type string, got'+ {todo};
       ctx.status = 400;
