@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-app.use(require('koa-delay')(1500, 1500));
+app.use(require('koa-delay')(200, 200));
 app.use(require('koa-cors')());
 app.use(require('koa-bodyparser')());
 if(process.env.NODE_ENV!=='test'){
