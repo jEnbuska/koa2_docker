@@ -5,7 +5,8 @@ app.use(require('koa-cors')());
 app.use(require('koa-bodyparser')());
 if(process.env.NODE_ENV!=='test'){
   app.use(require('./logger').default);
-  app.use(require('koa-delay')(200, 200));
+  app.use(require('koa-delay')(400, 400));
+  app.user(require('random-error').default);
 }
 const api = require('./api/v1');
 app.use(api.routes());
