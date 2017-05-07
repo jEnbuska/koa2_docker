@@ -30,6 +30,7 @@ router.get('/', async (ctx) => {
       method: 'post',
       url: '/users',
       request: {
+        id: 'OPTIONAL-string',
         name: 'string',
         imageUrl: 'string',
       },
@@ -53,7 +54,7 @@ router.get('/', async (ctx) => {
       method: 'post',
       url: '/users/:userId/todos',
       request: {
-        body: {todo: 'string'},
+        body: {id: 'OPTIONAL-string', todo: 'string'},
       },response: {
         body: {
           stringId1: { id: 'string', description: 'string', done: 'bool' },
