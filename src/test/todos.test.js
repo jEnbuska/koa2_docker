@@ -37,7 +37,7 @@ describe('Todos', function () {
   it('Add todo', function (done) {
     request
       .post('/users/' + referenceUser.id + '/todos')
-      .send({todo: 'do some unit testing'})
+      .send({description: 'do some unit testing'})
       .expect(200, (err, res) => {
         const todos = res.body;
         todos.abc.description.should.equal('eat in the morning');
@@ -57,7 +57,7 @@ describe('Todos', function () {
   it('Add todo with predefined id', function (done) {
     request
       .post('/users/' + referenceUser.id + '/todos')
-      .send({id: 'xyz', todo: 'do some more testing'})
+      .send({id: 'xyz', description: 'do some more testing'})
       .expect(200, (err, res) => {
         const todos = res.body;
         const newTodo = todos[keys(todos)[2]];
@@ -72,7 +72,7 @@ describe('Todos', function () {
   it('Try to override predefined todo on post', function (done) {
     request
       .post('/users/' + referenceUser.id + '/todos')
-      .send({id: 'xyz', todo: 'do some more testing'})
+      .send({id: 'xyz', description: 'do some more testing'})
       .expect(200, () => {
         request
           .post('/users/' + referenceUser.id + '/todos')

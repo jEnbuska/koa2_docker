@@ -54,7 +54,7 @@ router.get('/', async (ctx) => {
       method: 'post',
       url: '/users/:userId/todos',
       request: {
-        body: {id: 'OPTIONAL-string', todo: 'string'},
+        body: {id: 'OPTIONAL-string', description: 'string'},
       },response: {
         body: {
           stringId1: { id: 'string', description: 'string', done: 'bool', userId: 'string' },
