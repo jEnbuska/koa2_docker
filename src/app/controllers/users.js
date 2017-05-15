@@ -16,8 +16,8 @@ const getUserById = async (ctx) => {
   const {userId} = ctx.params;
   const user = users()[userId];
   if(user){
-    const {name, imageUrl, id} = user;
-    ctx.body = {name, imageUrl, id};
+    const {id, name, imageUrl} = user;
+    ctx.body = {id, name, imageUrl};
     ctx.status=200;
   }else{
     ctx.status = 404;
@@ -36,7 +36,7 @@ const createUser = async (ctx) => {
       ctx.body = 'Users already exists'+ id;
       ctx.status = 400;
     }else{
-      users()[id] = {id, name, imageUrl, todos: [] };
+      users()[id] = {id, name, imageUrl, todos: {} };
       ctx.status = 200;
       ctx.body = {id, name, imageUrl};
     }
