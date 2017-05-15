@@ -67,10 +67,10 @@ router.get('/', async (ctx) => {
       method: 'put',
       url: '/users/:userId',
       request: {
-        body: {name: 'string',imageUrl: 'string', userId: 'string'}
+        body: {name: 'string',imageUrl: 'string'}
       },
       response: {
-        body: {id: 'string',name: 'string',imageUrl:'string', userId: 'string'},
+        body: {id: 'string',name: 'string',imageUrl:'string'},
         status: 200,
       }
     },
@@ -81,7 +81,7 @@ router.get('/', async (ctx) => {
         body: {description: 'string',done: 'bool'}
       },
       response: {
-        body: {id: 'string',name: 'string',imageUrl:'string'},
+        body: {id: 'string',name: 'string',imageUrl:'string', userId: 'string'},
         status: 200,
       }
     },
