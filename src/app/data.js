@@ -7,8 +7,8 @@ const initialState = {
       name:'John Doe',
       imageUrl: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-13.jpg',
       todos: {
-        [todoId1]: { id: todoId1, description: 'eat in the morning', done:false},
-        [todoId2]: { id: todoId2, description: 'sleep during the day', done:false}
+        [todoId1]: { id: todoId1, description: 'eat in the morning', done:false, userId: 'klsdgk', },
+        [todoId2]: { id: todoId2, description: 'sleep during the day', done:false, userId: 'klsdgk', }
       }
     }
 };

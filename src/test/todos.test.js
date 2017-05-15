@@ -69,7 +69,7 @@ describe('Todos', function () {
       })
   });
 
-  it('Try to override predefined todo on posh', function (done) {
+  it('Try to override predefined todo on post', function (done) {
     request
       .post('/users/' + referenceUser.id + '/todos')
       .send({id: 'xyz', todo: 'do some more testing'})

@@ -44,8 +44,8 @@ router.get('/', async (ctx) => {
       url: '/users/:userId/todos',
       response: {
         body: {
-          stringId1: { id: 'string', description: 'string', done:'bool'},
-          stringId2: { id: 'string', description: 'string', done:'bool'}
+          stringId1: { id: 'string', description: 'string', done:'bool', userId: 'string'},
+          stringId2: { id: 'string', description: 'string', done:'bool', userId: 'string'}
         },
         status: 200,
       }
@@ -57,8 +57,8 @@ router.get('/', async (ctx) => {
         body: {id: 'OPTIONAL-string', todo: 'string'},
       },response: {
         body: {
-          stringId1: { id: 'string', description: 'string', done: 'bool' },
-          stringId2: { id: 'string', description: 'string', done: 'bool' },
+          stringId1: { id: 'string', description: 'string', done: 'bool', userId: 'string' },
+          stringId2: { id: 'string', description: 'string', done: 'bool', userId: 'string' },
         },
         status: 200
       }
@@ -67,7 +67,18 @@ router.get('/', async (ctx) => {
       method: 'put',
       url: '/users/:userId',
       request: {
-        body: {name: 'string',imageUrl: 'string'}
+        body: {name: 'string',imageUrl: 'string', userId: 'string'}
+      },
+      response: {
+        body: {id: 'string',name: 'string',imageUrl:'string', userId: 'string'},
+        status: 200,
+      }
+    },
+    updateTodo: {
+      method: 'put',
+      url: '/users/:userId/todos/:todoId',
+      request: {
+        body: {description: 'string',done: 'bool'}
       },
       response: {
         body: {id: 'string',name: 'string',imageUrl:'string'},

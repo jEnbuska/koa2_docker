@@ -40,3 +40,4 @@ src/node_modules
 
 #env
 .env
+.backup_codes

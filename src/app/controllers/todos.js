@@ -20,14 +20,12 @@ const createTodo = async (ctx) => {
     const {todo} = ctx.request.body;
     let {id} = ctx.request.body;
     if(typeof todo === 'string'){
-      if(!id){
-        id = hash();
-      }
+      if(!id){ id = hash(); }
       if(user.todos[id]){
         ctx.body = 'todo with id '+id+' already defined';
         ctx.status = 400;
       }else{
-        const newTodo = {id, description: todo, done:false};
+        const newTodo = {id, description: todo, done:false, userId, };
         user.todos[newTodo.id] = newTodo;
         ctx.body = user.todos;
         ctx.status=200;
@@ -50,12 +48,12 @@ const updateTodo = async (ctx) => {
     const todo = todos[todoId];
     if(todo){
       const {description, done} = ctx.request.body;
-      if(description && typeof description === 'string'){
+      if(description && typeof description === 'string' && typeof done  === 'boolean' ){
         user.todos[todo.id] = {...todo, description, done};
         ctx.status = 200;
         ctx.body = user.todos;
       }else{
-        ctx.body = 'Invalid todo description ' + description;
+        ctx.body = 'Invalid description ' + description + ' or done ' + done;
         ctx.status = 400;
       }
     }else{
